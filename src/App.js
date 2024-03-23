@@ -1,25 +1,37 @@
-import logo from './logo.svg';
+import React, { useState } from 'react';
+import Sidebar from './components/Sidebar';
+import Home from './components/Home';
+import Pantry from './components/Pantry';
+import Recipes from './components/Recipes';
+import History from './components/History';
 import './App.css';
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+	const [activePage, setActivePage] = useState('home');
+
+	const renderActivePage = () => {
+		switch (activePage) {
+			case 'home':
+				return <Home />;
+			case 'pantry':
+				return <Pantry />;
+			case 'recipes':
+				return <Recipes />;
+			case 'history':
+				return <History />;
+			default:
+				return <Home />;
+		}
+	};
+
+	return (
+		<div className="App">
+			<Sidebar onMenuSelect={setActivePage} />
+			<main className="content">
+				{renderActivePage()}
+			</main>
+		</div>
+	);
 }
 
 export default App;
