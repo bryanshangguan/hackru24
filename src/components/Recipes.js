@@ -1,33 +1,47 @@
 import React, { useState } from 'react';
-import { Button, Card, CardBody } from '@nextui-org/react';
+import { Button, Card, CardBody, Spinner } from '@nextui-org/react';
+import main from '../functions/fetchAIRecipes';
 
-function Recipes({ recipes }) {
+function Recipes({ ingredients }) {
     const [recipesList, setRecipesList] = useState([]);
     const [loading, setLoading] = useState(false);
 
-    const handleGetRecipes = async () => {
+    const handleGetRecipes = async (ingredients) => {
         setLoading(true);
 
-        const fakeApiResponse = ['Recipe 1', 'Recipe 2', 'Recipe 3'];
+        const fetchedRecipes = await main(['beef', 'carrots', 'corn', 'peanuts']);
 
-        setRecipesList(fakeApiResponse);
+        if (Array.isArray(fetchedRecipes)) {
+            setRecipesList(fetchedRecipes);
+        } else {
+            console.error('Fetched recipes is not an array:', fetchedRecipes);
+
+            setRecipesList([]);
+        }
         setLoading(false);
     };
 
     return (
         <div className='Recipes-page'>
             <h1>Recipes page</h1>
-            <Button auto flat color="success" onClick={handleGetRecipes} disabled={loading}>
-                {loading ? 'Loading...' : 'Get Recipes'}
+            <Button auto flat color='success' onClick={() => handleGetRecipes(ingredients)} disabled={loading}>
+                Get recipes
             </Button>
             <div className='recipes-list'>
-                {recipesList.map((recipe, index) => (
-                    <Card key={index}>
-                        <CardBody>
-                            <h1>{recipe}</h1>
-                        </CardBody>
-                    </Card>
-                ))}
+                {loading ? (
+                    <Spinner color='primary' size='large' />
+                ) : (
+                    recipesList.map((recipe, index) => (
+                        <Card key={index}>
+                            <CardBody>
+                                <h2>{recipe.name}</h2>
+                                {recipe.steps.map((step, stepIndex) => (
+                                    <p key={stepIndex}>{step}</p>
+                                ))}
+                            </CardBody>
+                        </Card>
+                    ))
+                )}
             </div>
         </div>
     );
