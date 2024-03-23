@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { NextUIProvider } from '@nextui-org/react';
 import Sidebar from './components/Sidebar';
 import Home from './components/Home';
 import Pantry from './components/Pantry';
@@ -25,12 +26,12 @@ function App() {
 	};
 
 	return (
-		<div className="App">
+		<NextUIProvider>
 			<Sidebar onMenuSelect={setActivePage} />
 			<main className="content">
 				{renderActivePage()}
 			</main>
-		</div>
+		</NextUIProvider>
 	);
 }
 
