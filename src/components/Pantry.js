@@ -27,7 +27,9 @@ function Pantry() {
   return (
     <div className='flex flex-col items-center h-screen my-3'>
 
-        <div className='justify-center flex w-full max-w-3xl mb-4'>
+        <h1 className="font-bold text-5xl my-11">My Pantry</h1>
+
+        <div className='justify-center flex w-full max-w-3xl'>
             <input
             type="text"
             placeholder="Enter food"
@@ -52,15 +54,20 @@ function Pantry() {
             </div>
         </div>
 
-        <div className="grid grid-cols-3 gap-2 border-b border-blue-500">
-            <div className="bg-gray-200 rounded-full h-24 w-24 my-2"></div>
-            <div className="bg-gray-200 rounded-full h-24 w-24 my-2"></div>
-            <div className="bg-gray-200 rounded-full h-24 w-24 my-2"></div>
+        <div className="grid grid-cols-3 gap-36 border-b-8 border-blue-500 mb-12">
+            <div className="bg-gray-200 rounded-full h-64 w-64 mt-12 my-2"></div>
+            <div className="bg-gray-200 rounded-full h-64 w-64 mt-12 my-2"></div>
+            <div className="bg-gray-200 rounded-full h-64 w-64 mt-12 my-2"></div>
         </div>
-        <div className="grid grid-cols-3 gap-2 border-b border-blue-500">
-            <div className="bg-gray-200 rounded-full h-24 w-24 my-2"></div>
-            <div className="bg-gray-200 rounded-full h-24 w-24 my-2"></div>
-            <div className="bg-gray-200 rounded-full h-24 w-24 my-2"></div>
+        <div className="grid grid-cols-3 gap-36 border-b-8 border-blue-500">
+            <div className="bg-gray-200 rounded-full h-64 w-64 mt-12 my-2"></div>
+            <div className="bg-gray-200 rounded-full h-64 w-64 mt-12 my-2"></div>
+            <div className="bg-gray-200 rounded-full h-64 w-64 mt-12 my-2"></div>
+        </div>
+        <div className="grid grid-cols-3 gap-36 border-b-8 border-blue-500">
+            <div className="bg-gray-200 rounded-full h-64 w-64 mt-12 my-2"></div>
+            <div className="bg-gray-200 rounded-full h-64 w-64 mt-12 my-2"></div>
+            <div className="bg-gray-200 rounded-full h-64 w-64 mt-12 my-2"></div>
         </div>
 
     </div>
