@@ -28,7 +28,7 @@ function Home() {
                         <input
                             type="text"
                             placeholder="username"
-                            className="p-2 max-w-full mb-2"
+                            className="p-2 w-full mb-2"
                             value={username}
                             onChange={handleUsernameChange}
                         />
@@ -36,7 +36,7 @@ function Home() {
                             <input
                                 type="password"
                                 placeholder="password"
-                                className="p-2 max-w-full"
+                                className="p-2 w-full"
                             />
                         )}
                     </div>
