@@ -1,8 +1,8 @@
 import OpenAI from 'openai';
-import { OpenAIkey } from './getApiKeys';
 
+//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
 const openai = new OpenAI({
-    apiKey: OpenAIkey(),
+    apiKey: '',
     dangerouslyAllowBrowser: true,
 });
 
