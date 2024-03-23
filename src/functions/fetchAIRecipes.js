@@ -1,11 +1,8 @@
 import OpenAI from 'openai';
-
-const key = () => {
-    return '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';
-};
+import { OpenAIkey } from './getApiKeys';
 
 const openai = new OpenAI({
-    apiKey: key,
+    apiKey: OpenAIkey(),
     dangerouslyAllowBrowser: true,
 });
 
