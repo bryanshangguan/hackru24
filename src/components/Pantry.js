@@ -11,74 +11,53 @@ import { Modal, ModalContent, ModalHeader, ModalBody } from "@nextui-org/react";
 function Pantry() {
 
     const [inputValue, setInputValue] = useState('');
-    const [fruits, setFruits] = useState([]);
-    const [vegetables, setVegetables] = useState([]);
-    const [protein, setProtein] = useState([]);
-    const [dairy, setDairy] = useState([]);
-    const [carbs, setCarbs] = useState([]);
-    const [season, setSeason] = useState([]);
+
+    const fruits = {};
+    const vegetables = {};
+    const protein = {};
+    const dairy = {};
+    const carbs = {};
+    const season = {};
 
     const [modalOpen, setModalOpen] = useState(false);
     const [modalContent, setModalContent] = useState([]);
 
-    //add input to category array
+
+    //category hash map
+    const categoryMap = {
+        fruitCat: {fruits},
+        veggiesCat: {vegetables},
+        proteinCat: {protein},
+        dairyCat: {dairy},
+        carbsCat: {carbs},
+        seasonCat: {season}
+    };
+
+    // add ingredient to category map and update counts
     const addToCat = (category) => {
-        switch (category) {
-        case 'fruit':
-            setFruits([...fruits, inputValue]);
-            console.log('Fruits:', fruits);
-            break;
-        case 'veggie':
-            setVegetables([...vegetables, inputValue]);
-            console.log('Veg:', vegetables);
-            break;
-        case 'protein':
-            setProtein([...protein, inputValue]);
-            console.log('Protein:', protein);
-            break;
-        case 'dairy':
-            setDairy([...fruits, inputValue]);
-            console.log('Dairy:', dairy);
-            break;
-        case 'carbs':
-            setCarbs([...carbs, inputValue]);
-            console.log('Carbs:', carbs);
-            break;
-        case 'season':
-            setSeason([...season, inputValue]);
-            console.log('Seasonings:', season);
-            break;
-        default:
-            break;
+        const categoryStateToUpdate = categoryMap[category];
+    
+        if (categoryStateToUpdate) {
+            const ingredient = inputValue.toLowerCase();
+        
+            // Check if the ingredient already exists in the category
+            if (categoryStateToUpdate.hasOwnProperty(ingredient)) {
+                categoryStateToUpdate[ingredient]++;
+            } else {
+                categoryStateToUpdate[ingredient] = 1;
+            }
         }
         setInputValue('');
     };
+    
 
     const openModalWithContent = (category) => {
-        switch (category) {
-            case 'fruit':
-                setModalContent(fruits);
-                break;
-            case 'veggie':
-                setModalContent(vegetables);
-                break;
-            case 'protein':
-                setModalContent(protein);
-                break;
-            case 'dairy':
-                setModalContent(dairy);
-                break;
-            case 'carbs':
-                setModalContent(carbs);
-                break;
-            case 'season':
-                setModalContent(season);
-                break;
-            default:
-                setModalContent([]);
-                break;
+        const categoryState = categoryMap[category];
+        if (categoryState) {
+            const categoryKeys = Object.keys(categoryState);
+            setModalContent(categoryKeys);
+            setModalOpen(true);
         }
-        setModalOpen(true);
     };
 
     return (
@@ -115,24 +94,24 @@ function Pantry() {
             </div>
 
             <div className="grid grid-cols-3 gap-36 border-b-8 border-blue-500 mb-12">
-                <button className="bg-gray-200 rounded-full h-64 w-64 mt-12 my-2 relative" onClick={() => openModalWithContent('fruit')}>
+                <button className="bg-gray-200 rounded-full h-64 w-64 mt-12 my-2 relative" onClick={() => openModalWithContent(fruits)}>
                     <img src={fruitIcon} alt="fruit" className="object-cover rounded-full h-full w-full" />
                 </button>
-                <button className="bg-gray-200 rounded-full h-64 w-64 mt-12 my-2 relative" onClick={() => openModalWithContent('veggies')}>
+                <button className="bg-gray-200 rounded-full h-64 w-64 mt-12 my-2 relative" onClick={() => openModalWithContent(vegetables)}>
                     <img src={veggiesIcon} alt="veggies" className="object-cover rounded-full h-full w-full" />
                 </button>
-                <button className="bg-gray-200 rounded-full h-64 w-64 mt-12 my-2 relative" onClick={() => openModalWithContent('protein')}>
+                <button className="bg-gray-200 rounded-full h-64 w-64 mt-12 my-2 relative" onClick={() => openModalWithContent(protein)}>
                     <img src={proteinIcon} alt="protein" className="object-cover rounded-full h-full w-full" />
                 </button>
             </div>
             <div className="grid grid-cols-3 gap-36 border-b-8 border-blue-500 mb-12">
-                <button className="bg-gray-200 rounded-full h-64 w-64 mt-12 my-2 relative" onClick={() => openModalWithContent('dairy')}>
+                <button className="bg-gray-200 rounded-full h-64 w-64 mt-12 my-2 relative" onClick={() => openModalWithContent(dairy)}>
                     <img src={dairyIcon} alt="dairy" className="object-cover rounded-full h-full w-full" />
                 </button>
-                <button className="bg-gray-200 rounded-full h-64 w-64 mt-12 my-2 relative" onClick={() => openModalWithContent('carbs')}>
+                <button className="bg-gray-200 rounded-full h-64 w-64 mt-12 my-2 relative" onClick={() => openModalWithContent(carbs)}>
                     <img src={carbsIcon} alt="carbs" className="object-cover rounded-full h-full w-full" />
                 </button>
-                <button className="bg-gray-200 rounded-full h-64 w-64 mt-12 my-2 relative" onClick={() => openModalWithContent('season')}>
+                <button className="bg-gray-200 rounded-full h-64 w-64 mt-12 my-2 relative" onClick={() => openModalWithContent(season)}>
                     <img src={seasonIcon} alt="season" className="object-cover rounded-full h-full w-full" />
                 </button>
             </div>
