@@ -1,15 +1,28 @@
-import React, { useState } from 'react';
-import { Button, Input } from '@nextui-org/react';
-import logo2 from '../img/logo1.png';
+import React, { useState, useEffect } from 'react';
+import { Button, Input, Checkbox } from '@nextui-org/react';
+import logo2 from '../img/logo2.png';
 
 function Home({ setOpenAIKey }) {
     const [apiKey, setApiKey] = useState('');
     const [isValidKey, setIsValidKey] = useState(true);
     const [submitted, setSubmitted] = useState(false);
+    const [saveKey, setSaveKey] = useState(false);
+
+    useEffect(() => {
+        const storedApiKey = localStorage.getItem('apiKey');
+        if (storedApiKey) {
+            setApiKey(storedApiKey);
+            setOpenAIKey(storedApiKey);
+        }
+    }, [setOpenAIKey]);
 
     const handleApiKeyChange = (event) => {
         setApiKey(event.target.value);
         setSubmitted(false);
+    };
+
+    const handleSaveKeyChange = (event) => {
+        setSaveKey(event.target.checked);
     };
 
     const validateApiKey = async (key) => {
@@ -23,6 +36,9 @@ function Home({ setOpenAIKey }) {
 
             if (response.status === 200) {
                 setIsValidKey(true);
+                if (saveKey) {
+                    localStorage.setItem('apiKey', key);
+                }
                 return true;
             } else {
                 setIsValidKey(false);
@@ -52,24 +68,22 @@ function Home({ setOpenAIKey }) {
                     <h1 className='text-left font-serif text-9xl font-bold mb-4'>Pantry Chef</h1>
                     <p className='text-right font-serif text-3xl'>Where Every Ingredient Counts.</p>
                 </div>
-                <div className='bg-yellow-400 p-4 rounded-lg shadow-lg w-64'>
+                <div className='border-yellow-400 border-2 p-4 rounded-lg shadow-lg w-64'>
                     <h2 className='text-lg mb-2'>API Key</h2>
                     <form onSubmit={handleSubmit}>
-                        <div className='mb-4'>
-                            <Input
-                                type='text'
-                                placeholder='Enter your API key'
-                                className='w-full mb-2'
-                                radius='sm'
-                                value={apiKey}
-                                onChange={handleApiKeyChange}
-                            />
-                            {!isValidKey && submitted && <p className='text-red-500'>Invalid API key. Please try again.</p>}
-                        </div>
-                        {!isValidKey || !submitted ? (
-                            <Button type='submit' color='primary' radius='sm' className='w-full'>Submit</Button>
-                        ) : (<p className='text-lg text-green-500 text-center'>Valid API key detected!</p>
-                        )}
+                        <Input
+                            type='text'
+                            variant='bordered'
+                            placeholder='Enter your API key'
+                            value={apiKey}
+                            onChange={handleApiKeyChange}
+                        />
+                        <Checkbox checked={saveKey} onChange={handleSaveKeyChange} className='mt-1 mb-2'>
+                            Save key (locally)
+                        </Checkbox>
+                        <Button type='submit' color='primary' className='w-full'>Submit</Button>
+                        {!isValidKey && submitted && <p className='text-red-500'>Invalid API key. Please try again.</p>}
+                        {isValidKey && submitted && <p className='text-green-500'>Valid API key detected!</p>}
                     </form>
                 </div>
             </div>

@@ -4,10 +4,9 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUtensils, faTrash, faStar } from '@fortawesome/free-solid-svg-icons';
 import fetchRecipes from '../functions/fetchRecipes';
 
-function Recipes({ apiKey, ingredients }) {
+function Recipes({ apiKey, toggleFavorite, favorites, ingredients }) {
     const [recipesList, setRecipesList] = useState([]);
     const [loading, setLoading] = useState(false);
-    const [favorites, setFavorites] = useState([]);
 
     const handleGetRecipes = async (ingredients) => {
         setLoading(true);
@@ -24,16 +23,6 @@ function Recipes({ apiKey, ingredients }) {
     const clearRecipes = () => {
         setRecipesList([]);
     };
-
-    const toggleFavorite = (recipe) => {
-        if (favorites.includes(recipe)) {
-            setFavorites(favorites.filter(fav => fav !== recipe));
-        } else {
-            setFavorites([...favorites, recipe]);
-        }
-    };
-
-
 
     return (
         <div className='container mx-auto'>
@@ -78,7 +67,7 @@ function Recipes({ apiKey, ingredients }) {
                                                 <span>{recipe.name}</span>
                                                 <div className="flex gap-4 items-center">
                                                     <Button onClick={() => toggleFavorite(recipe)} color="white" aria-label="Favorite">
-                                                        {favorites.includes(recipe) ? <FontAwesomeIcon icon={faStar} className='text-xl' style={{ color: "#000000", }} /> : <FontAwesomeIcon icon={faStar} className='text-xl' style={{ color: "#FFD43B", }} />}
+                                                        {favorites.includes(recipe) ? <FontAwesomeIcon icon={faStar} className='text-xl' style={{ color: "#FFD43B", }} /> : <FontAwesomeIcon icon={faStar} className='text-xl' style={{ color: "#000000", }} />}
                                                     </Button>
                                                 </div>
                                             </div>

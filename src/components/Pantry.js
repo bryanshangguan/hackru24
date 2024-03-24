@@ -87,6 +87,7 @@ function Pantry() {
             <div className='justify-center flex w-full max-w-3xl'>
                 <Input
                     type='text'
+                    variant='bordered'
                     placeholder="Enter food"
                     value={inputValue}
                     onChange={(e) => setInputValue(e.target.value)}
@@ -97,7 +98,7 @@ function Pantry() {
                 <div className="px-2">
                     <Dropdown>
                         <DropdownTrigger>
-                            <Button variant='solid' radius='sm'>
+                            <Button variant='solid' radius='sm' color='success'>
                                 +Add to Pantry Category
                             </Button>
                         </DropdownTrigger>
