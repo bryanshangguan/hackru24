@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Dropdown, DropdownTrigger, DropdownMenu, DropdownItem, Button } from "@nextui-org/react";
 import logo1 from '../img/logo1.png';
+import { Modal, ModalContent, ModalHeader, ModalBody } from "@nextui-org/react";
 
 function Pantry() {
 
@@ -87,19 +88,23 @@ function Pantry() {
                 </button>
             </div>
 
-            {modalOpen && (
-                <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
-                    <div className="bg-white p-4 rounded-lg">
-                        <h2>Modal Content</h2>
-                        <ul>
-                            {modalContent.map((item, index) => (
-                                <li key={index}>{item}</li>
-                            ))}
-                        </ul>
-                        <button onClick={() => setModalOpen(false)}>Close Modal</button>
-                    </div>
-                </div>
-            )}
+            <Modal isOpen={modalOpen} onClose={() => setModalOpen(false)}>
+                <ModalContent>
+                    {(onClose) => (
+                        <>
+                            <ModalHeader className="flex flex-col gap-1">Modal Title</ModalHeader>
+                            <ModalBody>
+                                <ul>
+                                    {modalContent.map((item, index) => (
+                                        <li key={index}>{item}</li>
+                                    ))}
+                                </ul>
+                                <button onClick={onClose}>Close Modal</button>
+                            </ModalBody>
+                        </>
+                    )}
+                </ModalContent>
+            </Modal>
 
         </div>
     );
