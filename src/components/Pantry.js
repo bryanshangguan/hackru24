@@ -28,7 +28,7 @@ function Pantry() {
                 setFruits([...fruits, inputValue]);
                 console.log('Fruits:', fruits);
                 break;
-            case 'veggie':
+            case 'veggies':
                 setVegetables([...vegetables, inputValue]);
                 console.log('Veg:', vegetables);
                 break;
@@ -60,7 +60,7 @@ function Pantry() {
             case 'fruit':
                 setModalContent(fruits);
                 break;
-            case 'veggie':
+            case 'veggies':
                 setModalContent(vegetables);
                 break;
             case 'protein':
@@ -87,7 +87,7 @@ function Pantry() {
             case 'fruit':
                 setFruits(fruits.filter(fruit => fruit !== item));
                 break;
-            case 'veggie':
+            case 'veggies':
                 setVegetables(vegetables.filter(vegetable => vegetable !== item));
                 break;
             case 'protein':
@@ -131,7 +131,7 @@ function Pantry() {
                         </DropdownTrigger>
                         <DropdownMenu aria-label="Action event example" onAction={(key) => addToCat(key)}>
                             <DropdownItem key="fruit">Fruits</DropdownItem>
-                            <DropdownItem key="veggie">Vegetables</DropdownItem>
+                            <DropdownItem key="veggies">Vegetables</DropdownItem>
                             <DropdownItem key="protein">Protein</DropdownItem>
                             <DropdownItem key="dairy">Dairy</DropdownItem>
                             <DropdownItem key="carbs">Carbs</DropdownItem>
@@ -141,18 +141,18 @@ function Pantry() {
                 </div>
             </div>
 
-            <div className="grid grid-cols-3 gap-36 border-b-8 border-blue-500 mb-12">
+            <div className="grid grid-cols-3 gap-36 border-b-8 border-blue-accent mb-12">
                 <button className="bg-gray-200 rounded-full h-64 w-64 mt-12 my-2 relative" onClick={() => openModalWithContent('fruit')}>
                     <img src={fruitIcon} alt="fruit" className="object-cover rounded-full h-full w-full" />
                 </button>
-                <button className="bg-gray-200 rounded-full h-64 w-64 mt-12 my-2 relative" onClick={() => openModalWithContent('veggie')}>
-                    <img src={veggiesIcon} alt="veggie" className="object-cover rounded-full h-full w-full" />
+                <button className="bg-gray-200 rounded-full h-64 w-64 mt-12 my-2 relative" onClick={() => openModalWithContent('veggies')}>
+                    <img src={veggiesIcon} alt="veggies" className="object-cover rounded-full h-full w-full" />
                 </button>
                 <button className="bg-gray-200 rounded-full h-64 w-64 mt-12 my-2 relative" onClick={() => openModalWithContent('protein')}>
                     <img src={proteinIcon} alt="protein" className="object-cover rounded-full h-full w-full" />
                 </button>
             </div>
-            <div className="grid grid-cols-3 gap-36 border-b-8 border-blue-500 mb-12">
+            <div className="grid grid-cols-3 gap-36 border-b-8 border-blue-accent mb-12">
                 <button className="bg-gray-200 rounded-full h-64 w-64 mt-12 my-2 relative" onClick={() => openModalWithContent('dairy')}>
                     <img src={dairyIcon} alt="dairy" className="object-cover rounded-full h-full w-full" />
                 </button>
@@ -168,7 +168,7 @@ function Pantry() {
                 <ModalContent>
                     {(onClose) => (
                     <>
-                        <ModalHeader className="flex flex-col gap-1">Modal Title</ModalHeader>
+                        <ModalHeader className="flex flex-col gap-1">{currentCategory}</ModalHeader>
                         <ModalBody>
                         <ul>
                             {modalContent.map((item, index) => (
@@ -180,7 +180,6 @@ function Pantry() {
                             </li>
                             ))}
                         </ul>
-                        <button onClick={onClose}>Close Modal</button>
                         </ModalBody>
                     </>
                     )}
