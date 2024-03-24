@@ -31,9 +31,8 @@ function Recipes({ apiKey, ingredients }) {
             </div>
             <div className='flex justify-center mb-8'>
                 <Button
-                    auto
-                    flat
                     color='success'
+                    radius='sm'
                     onClick={() => handleGetRecipes(ingredients)}
                     disabled={loading}
                     className='mr-4 px-6 py-3 text-lg'
@@ -42,9 +41,8 @@ function Recipes({ apiKey, ingredients }) {
                     Get Recipes
                 </Button>
                 <Button
-                    auto
-                    flat
                     color='default'
+                    radius='sm'
                     onClick={clearRecipes}
                     disabled={loading}
                     className='px-6 py-3 text-lg'

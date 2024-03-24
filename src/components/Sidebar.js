@@ -21,9 +21,9 @@ function Sidebar({ onMenuSelect, isSidebarCollapsed, setIsSidebarCollapsed }) {
     };
 
     return (
-        <div className={`fixed top-0 left-0 h-screen ${getSidebarClasses()} bg-blue-accent flex flex-col items-center p-3 transition-width duration-300`}>
+        <div className={`fixed top-0 left-0 h-screen ${getSidebarClasses()} bg-blue-accent flex flex-col items-center p-3 transition-width duration-300 border-r-2 border-gray-200 shadow-r-md`}>
             <div className={`w-full mb-8 transition-all duration-300 ${isSidebarCollapsed ? 'h-16' : 'h-auto'}`}>
-                <img src={logo1} alt='Logo' className={`self-center object-contain ${isSidebarCollapsed ? 'scale-75' : 'scale-75'}`} />
+                <img src={logo1} alt='Logo' className={`self-center object-contain ${isSidebarCollapsed ? 'scale-75' : 'scale-100'}`} />
             </div>
             <nav className='space-y-2 w-full'>
                 <button className={getButtonClasses()} onClick={() => handleMenuClick('home')}>

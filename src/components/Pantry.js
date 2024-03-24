@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Dropdown, DropdownTrigger, DropdownMenu, DropdownItem, Button } from "@nextui-org/react";
+import { Input, Dropdown, DropdownTrigger, DropdownMenu, DropdownItem, Button } from "@nextui-org/react";
 import fruitIcon from '../img/pantryIcons/fruitIcon.png';
 import veggiesIcon from '../img/pantryIcons/veggiesIcon.png';
 import proteinIcon from '../img/pantryIcons/proteinIcon.png';
@@ -85,18 +85,19 @@ function Pantry() {
             <h1 className="font-bold text-5xl my-11">My Pantry</h1>
 
             <div className='justify-center flex w-full max-w-3xl'>
-                <input
-                    type="text"
+                <Input
+                    type='text'
                     placeholder="Enter food"
                     value={inputValue}
                     onChange={(e) => setInputValue(e.target.value)}
-                    className="px-2 border"
+                    className='w-1/2'
+                    radius='sm'
                 />
 
                 <div className="px-2">
                     <Dropdown>
                         <DropdownTrigger>
-                            <Button variant="solid">
+                            <Button variant='solid' radius='sm'>
                                 +Add to Pantry Category
                             </Button>
                         </DropdownTrigger>
