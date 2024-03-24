@@ -9,7 +9,6 @@ import seasonIcon from '../img/pantryIcons/seasonIcon.png';
 import { Modal, ModalContent, ModalHeader, ModalBody } from "@nextui-org/react";
 
 function Pantry() {
-
     const [inputValue, setInputValue] = useState('');
     const [fruits, setFruits] = useState([]);
     const [vegetables, setVegetables] = useState([]);
@@ -21,35 +20,34 @@ function Pantry() {
     const [modalOpen, setModalOpen] = useState(false);
     const [modalContent, setModalContent] = useState([]);
 
-    //add input to category array
     const addToCat = (category) => {
         switch (category) {
-        case 'fruit':
-            setFruits([...fruits, inputValue]);
-            console.log('Fruits:', fruits);
-            break;
-        case 'veggie':
-            setVegetables([...vegetables, inputValue]);
-            console.log('Veg:', vegetables);
-            break;
-        case 'protein':
-            setProtein([...protein, inputValue]);
-            console.log('Protein:', protein);
-            break;
-        case 'dairy':
-            setDairy([...fruits, inputValue]);
-            console.log('Dairy:', dairy);
-            break;
-        case 'carbs':
-            setCarbs([...carbs, inputValue]);
-            console.log('Carbs:', carbs);
-            break;
-        case 'season':
-            setSeason([...season, inputValue]);
-            console.log('Seasonings:', season);
-            break;
-        default:
-            break;
+            case 'fruit':
+                setFruits([...fruits, inputValue]);
+                console.log('Fruits:', fruits);
+                break;
+            case 'veggie':
+                setVegetables([...vegetables, inputValue]);
+                console.log('Veg:', vegetables);
+                break;
+            case 'protein':
+                setProtein([...protein, inputValue]);
+                console.log('Protein:', protein);
+                break;
+            case 'dairy':
+                setDairy([...fruits, inputValue]);
+                console.log('Dairy:', dairy);
+                break;
+            case 'carbs':
+                setCarbs([...carbs, inputValue]);
+                console.log('Carbs:', carbs);
+                break;
+            case 'season':
+                setSeason([...season, inputValue]);
+                console.log('Seasonings:', season);
+                break;
+            default:
+                break;
         }
         setInputValue('');
     };
@@ -88,28 +86,28 @@ function Pantry() {
 
             <div className='justify-center flex w-full max-w-3xl'>
                 <input
-                type="text"
-                placeholder="Enter food"
-                value={inputValue}
-                onChange={(e) => setInputValue(e.target.value)}
-                className="px-2 border"
+                    type="text"
+                    placeholder="Enter food"
+                    value={inputValue}
+                    onChange={(e) => setInputValue(e.target.value)}
+                    className="px-2 border"
                 />
 
                 <div className="px-2">
                     <Dropdown>
-                    <DropdownTrigger>
-                        <Button variant="solid">
-                        +Add to Pantry Category
-                        </Button>
-                    </DropdownTrigger>
-                    <DropdownMenu aria-label="Action event example" onAction={(key) => addToCat(key)}>
-                        <DropdownItem key="fruit">Fruits</DropdownItem>
-                        <DropdownItem key="veggie">Vegetables</DropdownItem>
-                        <DropdownItem key="protein">Protein</DropdownItem>
-                        <DropdownItem key="dairy">Dairy</DropdownItem>
-                        <DropdownItem key="carbs">Carbs</DropdownItem>
-                        <DropdownItem key="season">Seasoning</DropdownItem>
-                    </DropdownMenu>
+                        <DropdownTrigger>
+                            <Button variant="solid">
+                                +Add to Pantry Category
+                            </Button>
+                        </DropdownTrigger>
+                        <DropdownMenu aria-label="Action event example" onAction={(key) => addToCat(key)}>
+                            <DropdownItem key="fruit">Fruits</DropdownItem>
+                            <DropdownItem key="veggie">Vegetables</DropdownItem>
+                            <DropdownItem key="protein">Protein</DropdownItem>
+                            <DropdownItem key="dairy">Dairy</DropdownItem>
+                            <DropdownItem key="carbs">Carbs</DropdownItem>
+                            <DropdownItem key="season">Seasoning</DropdownItem>
+                        </DropdownMenu>
                     </Dropdown>
                 </div>
             </div>
