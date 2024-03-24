@@ -9,7 +9,7 @@ import seasonIcon from '../img/pantryIcons/seasonIcon.png';
 import removeIcon from '../img/pantryIcons/removeIcon.png';
 import { Modal, ModalContent, ModalHeader, ModalBody } from "@nextui-org/react";
 
-function Pantry() {
+function Pantry({ updateIngredients }) {
     const [inputValue, setInputValue] = useState('');
     const [fruits, setFruits] = useState([]);
     const [vegetables, setVegetables] = useState([]);
@@ -26,27 +26,21 @@ function Pantry() {
         switch (category) {
             case 'fruit':
                 setFruits([...fruits, inputValue]);
-                console.log('Fruits:', fruits);
                 break;
             case 'veggies':
                 setVegetables([...vegetables, inputValue]);
-                console.log('Veg:', vegetables);
                 break;
             case 'protein':
                 setProtein([...protein, inputValue]);
-                console.log('Protein:', protein);
                 break;
             case 'dairy':
                 setDairy([...fruits, inputValue]);
-                console.log('Dairy:', dairy);
                 break;
             case 'carbs':
                 setCarbs([...carbs, inputValue]);
-                console.log('Carbs:', carbs);
                 break;
             case 'season':
                 setSeason([...season, inputValue]);
-                console.log('Seasonings:', season);
                 break;
             default:
                 break;
@@ -79,6 +73,7 @@ function Pantry() {
                 setModalContent([]);
                 break;
         }
+        updateIngredients([...fruits, ...vegetables, ...protein, ...dairy, ...carbs, ...season]);
         setModalOpen(true);
     };
 
@@ -105,8 +100,9 @@ function Pantry() {
             default:
                 break;
         }
+        updateIngredients([...fruits, ...vegetables, ...protein, ...dairy, ...carbs, ...season]);
         setModalOpen(false);
-    };    
+    };
 
     return (
         <div className='flex flex-col items-center h-screen my-3'>

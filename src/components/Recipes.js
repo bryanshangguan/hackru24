@@ -10,7 +10,8 @@ function Recipes({ apiKey, toggleFavorite, favorites, ingredients }) {
 
     const handleGetRecipes = async (ingredients) => {
         setLoading(true);
-        const fetchedRecipes = await fetchRecipes(apiKey, ['beef', 'carrots', 'corn', 'peanuts']);
+        const fetchedRecipes = await fetchRecipes(apiKey, ingredients);
+        console.log(fetchedRecipes);
         if (Array.isArray(fetchedRecipes)) {
             setRecipesList(fetchedRecipes);
         } else {

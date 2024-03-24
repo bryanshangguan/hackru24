@@ -11,20 +11,25 @@ function App() {
 	const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
 	const [apiKey, setOpenAIKey] = useState('');
 	const [favorites, setFavorites] = useState([]);
+	const [ingredients, setIngredients] = useState([]);
 
 	const toggleFavorite = recipe => {
 		const isFavorite = favorites.includes(recipe);
 		setFavorites(isFavorite ? favorites.filter(f => f !== recipe) : [...favorites, recipe]);
 	};
 
+	const updateIngredients = newIngredients => {
+        setIngredients(newIngredients);
+    };
+
 	const renderActivePage = () => {
 		switch (activePage) {
 			case 'home':
 				return <Home setOpenAIKey={setOpenAIKey} />;
 			case 'pantry':
-				return <Pantry />;
+				return <Pantry updateIngredients={updateIngredients} />;
 			case 'recipes':
-				return <Recipes apiKey={apiKey} toggleFavorite={toggleFavorite} favorites={favorites} />;
+				return <Recipes apiKey={apiKey} toggleFavorite={toggleFavorite} favorites={favorites} ingredients={ingredients} />;
 			case 'favorites':
 				return <Favorites toggleFavorite={toggleFavorite} favorites={favorites} />;
 			default:
