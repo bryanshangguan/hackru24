@@ -1,13 +1,19 @@
 import React, { useState } from 'react';
 import { Dropdown, DropdownTrigger, DropdownMenu, DropdownItem, Button } from "@nextui-org/react";
+import logo1 from '../img/logo1.png';
 
 function Pantry() {
+
     const [inputValue, setInputValue] = useState('');
     const [fruits, setFruits] = useState([]);
     const [vegetables, setVegetables] = useState([]);
     const [protein, setProtein] = useState([]);
 
-    const handleAddToCategory = (category) => {
+    const [modalOpen, setModalOpen] = useState(false);
+    const [modalContent, setModalContent] = useState([]);
+
+    //add input to category array
+    const addToCat = (category) => {
         switch (category) {
         case 'fruit':
             setFruits([...fruits, inputValue]);
@@ -25,6 +31,24 @@ function Pantry() {
             break;
         }
         setInputValue('');
+    };
+
+    const openModalWithContent = (category) => {
+        switch (category) {
+            case 'fruit':
+                setModalContent(fruits);
+                break;
+            case 'veggie':
+                setModalContent(vegetables);
+                break;
+            case 'protein':
+                setModalContent(protein);
+                break;
+            default:
+                setModalContent([]);
+                break;
+        }
+        setModalOpen(true);
     };
 
     return (
@@ -48,7 +72,7 @@ function Pantry() {
                         +Add to Pantry Category
                         </Button>
                     </DropdownTrigger>
-                    <DropdownMenu aria-label="Action event example" onAction={(key) => handleAddToCategory(key)}>
+                    <DropdownMenu aria-label="Action event example" onAction={(key) => addToCat(key)}>
                         <DropdownItem key="fruit">Fruits</DropdownItem>
                         <DropdownItem key="veggie">Vegetables</DropdownItem>
                         <DropdownItem key="protein">Protein</DropdownItem>
@@ -58,20 +82,24 @@ function Pantry() {
             </div>
 
             <div className="grid grid-cols-3 gap-36 border-b-8 border-blue-500 mb-12">
-                <div className="bg-gray-200 rounded-full h-64 w-64 mt-12 my-2"></div>
-                <div className="bg-gray-200 rounded-full h-64 w-64 mt-12 my-2"></div>
-                <div className="bg-gray-200 rounded-full h-64 w-64 mt-12 my-2"></div>
+                <button className="bg-gray-200 rounded-full h-64 w-64 mt-12 my-2 relative" onClick={() => openModalWithContent('fruit')}>
+                    <img src={logo1} alt="food" className="object-cover rounded-full h-full w-full" />
+                </button>
             </div>
-            <div className="grid grid-cols-3 gap-36 border-b-8 border-blue-500">
-                <div className="bg-gray-200 rounded-full h-64 w-64 mt-12 my-2"></div>
-                <div className="bg-gray-200 rounded-full h-64 w-64 mt-12 my-2"></div>
-                <div className="bg-gray-200 rounded-full h-64 w-64 mt-12 my-2"></div>
-            </div>
-            <div className="grid grid-cols-3 gap-36 border-b-8 border-blue-500">
-                <div className="bg-gray-200 rounded-full h-64 w-64 mt-12 my-2"></div>
-                <div className="bg-gray-200 rounded-full h-64 w-64 mt-12 my-2"></div>
-                <div className="bg-gray-200 rounded-full h-64 w-64 mt-12 my-2"></div>
-            </div>
+
+            {modalOpen && (
+                <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+                    <div className="bg-white p-4 rounded-lg">
+                        <h2>Modal Content</h2>
+                        <ul>
+                            {modalContent.map((item, index) => (
+                                <li key={index}>{item}</li>
+                            ))}
+                        </ul>
+                        <button onClick={() => setModalOpen(false)}>Close Modal</button>
+                    </div>
+                </div>
+            )}
 
         </div>
     );
