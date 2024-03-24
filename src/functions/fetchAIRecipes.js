@@ -11,7 +11,7 @@ export default async function main(ingredients) {
             model: 'gpt-3.5-turbo',
             messages: [{
                 role: 'user',
-                content: `Please give 5 recipes given these ingredients only. Assume that common condiments are available but not other main ingredients, return all of the recipes in an array: ${ingredients}`
+                content: `Please give 5 recipes given these ingredients only. Assume that common condiments are available but not other main ingredients, return all of the recipes in a numbered list: ${ingredients}`
             }],
             stream: false,
         });
