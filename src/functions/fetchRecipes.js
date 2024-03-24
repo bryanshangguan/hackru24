@@ -11,7 +11,7 @@ export default async function fetchRecipes(apiKey, ingredients) {
             model: 'gpt-3.5-turbo',
             messages: [{
                 role: 'user',
-                content: `Please give 5 recipes given these ingredients only. Assume that common condiments are available but not other main ingredients, return all of the recipes in an array: ${ingredients}. Make sure the steps are show in a bullet point format and that the name of the dish is followed with a ":".`
+                content: `Please give 5 recipes given these ingredients only. Assume that common condiments are available but not other main ingredients, return all of the recipes in an array: ${ingredients}. Make sure the steps are show in a bullet point format and that the name of the dish is followed with a ":".`,
             }],
             stream: false,
         });

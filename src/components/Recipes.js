@@ -3,6 +3,7 @@ import { Button, Card, CardBody, Spinner } from '@nextui-org/react';
 import fetchRecipes from '../functions/fetchRecipes';
 import { Accordion, AccordionItem } from "@nextui-org/react";
 
+
 function Recipes({ apiKey, ingredients }) {
     const [recipesList, setRecipesList] = useState([]);
     const [loading, setLoading] = useState(false);
@@ -31,7 +32,7 @@ function Recipes({ apiKey, ingredients }) {
             <div>
                 <p className='font-serif pl-28 mt-4 text-5xl font-bold'>Generate Recipes with Ingredients</p>
             </div>
-            <div className='recipes-list px-20 mt-4'>
+            <div className='recipes-list px-20 space-y-4 mt-4'>
                 {loading ? (
                     <Spinner color='primary' size='large' />
                 ) : (
