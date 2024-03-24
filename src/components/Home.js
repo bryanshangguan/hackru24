@@ -1,21 +1,20 @@
 import React, { useState } from 'react';
 import logo2 from '../img/logo1.png';
 
-function Home() {
-    const [username, setUsername] = useState('');
-    const [showPassword, setShowPassword] = useState(false);
+function Home({ setOpenAIKey }) {
+    const [apiKey, setApiKey] = useState('');
 
-    const handleUsernameChange = (event) => {
-        setUsername(event.target.value);
-        if (event.target.value.length > 0) {
-            setShowPassword(true);
-        } else {
-            setShowPassword(false);
-        }
+    const handleApiKeyChange = (event) => {
+        setApiKey(event.target.value);
+        setOpenAIKey(event.target.value);
+    };
+
+    const handleSubmit = (event) => {
+        event.preventDefault();
     };
 
     return (
-        <div className="px-6"> {/* Adjust padding left to match the width of your sidebar */}
+        <div className="px-6">
             <div className="flex justify-between items-start py-8">
                 <img src={logo2} alt='Logo' className="w-60 h-60 object-contain mr-2" />
                 <div>
@@ -23,26 +22,19 @@ function Home() {
                     <p className="text-right font-serif text-3xl">Where Every Ingredient Counts.</p>
                 </div>
                 <div className="bg-yellow-400 p-4 rounded-lg shadow-lg w-64">
-                    <h2 className="text-lg mb-2">Log in</h2>
-                    <div className="mb-4">
-                        <input
-                            type="text"
-                            placeholder="username"
-                            className="p-2 w-full mb-2"
-                            value={username}
-                            onChange={handleUsernameChange}
-                        />
-                        {showPassword && (
+                    <h2 className="text-lg mb-2">API Key</h2>
+                    <form onSubmit={handleSubmit}>
+                        <div className="mb-4">
                             <input
-                                type="password"
-                                placeholder="password"
-                                className="p-2 w-full"
+                                type="text"
+                                placeholder="Enter your API key"
+                                className="p-2 w-full mb-2"
+                                value={apiKey}
+                                onChange={handleApiKeyChange}
                             />
-                        )}
-                    </div>
-                    {showPassword && (
-                        <button className="w-full bg-blue-500 text-white p-2 rounded">Submit</button>
-                    )}
+                        </div>
+                        <button type="submit" className="w-full bg-blue-500 text-white p-2 rounded">Submit</button>
+                    </form>
                 </div>
             </div>
             <div className="grid grid-cols-2 gap-4">

@@ -1,24 +1,24 @@
 import OpenAI from 'openai';
 
-const openai = new OpenAI({
-    apiKey: '',
-    dangerouslyAllowBrowser: true,
-});
+export default async function fetchRecipes(apiKey, ingredients) {
+    const openai = new OpenAI({
+        apiKey: apiKey,
+        dangerouslyAllowBrowser: true,
+    });
 
-export default async function main(ingredients) {
     try {
         const response = await openai.chat.completions.create({
             model: 'gpt-3.5-turbo',
             messages: [{
                 role: 'user',
-                content: `Please give 5 recipes given these ingredients only. Assume that common condiments are available but not other main ingredients, return all of the recipes in a numbered list: ${ingredients}`
+                content: `Please give 5 recipes given these ingredients only. Assume that common condiments are available but not other main ingredients, return all of the recipes in an array: ${ingredients}. Make sure the steps are show in a bullet point format and that the name of the dish is followed with a ":".`,
             }],
             stream: false,
         });
 
         if (response.choices && response.choices.length > 0) {
             const content = response.choices[0].message.content;
-
+            // console.log(content);
             return parseRecipes(content);
         } else {
             console.error('Unexpected response structure:', response);
@@ -46,5 +46,6 @@ function parseRecipes(recipeString) {
         };
     });
 
+    // console.log(recipeObjects);
     return recipeObjects;
 }

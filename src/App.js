@@ -9,19 +9,20 @@ import History from './components/History';
 function App() {
 	const [activePage, setActivePage] = useState('home');
 	const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
+	const [apiKey, setOpenAIKey] = useState('');
 
 	const renderActivePage = () => {
 		switch (activePage) {
 			case 'home':
-				return <Home />;
+				return <Home setOpenAIKey={setOpenAIKey} />;
 			case 'pantry':
 				return <Pantry />;
 			case 'recipes':
-				return <Recipes />;
+				return <Recipes apiKey={apiKey} />;
 			case 'history':
 				return <History />;
 			default:
-				return <Home />;
+				return <Home setOpenAIKey={setOpenAIKey} />;
 		}
 	};
 
