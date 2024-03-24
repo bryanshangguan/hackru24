@@ -21,13 +21,13 @@ function Recipes({ ingredients }) {
         setLoading(false);
     };
 
+    const clearRecipes = () => {
+        setRecipesList([]);
+    };
+
     return (
         <div className='Recipes-page'>
-            <h1>Recipes page</h1>
-            <Button auto flat color='success' onClick={() => handleGetRecipes(ingredients)} disabled={loading}>
-                Get recipes
-            </Button>
-            <div className='recipes-list'>
+            <div className='recipes-list px-20'>
                 {loading ? (
                     <Spinner color='primary' size='large' />
                 ) : (
@@ -42,6 +42,14 @@ function Recipes({ ingredients }) {
                         </Card>
                     ))
                 )}
+            </div>
+            <div className = "pl-28 space-x-3 h-9">
+                <Button auto flat color='success' onClick={() => handleGetRecipes(ingredients)} disabled={loading}>
+                    Get Recipes
+                </Button>
+                <Button auto flat color='default' onClick={clearRecipes} disabled={loading}>
+                    Clear Recipes
+                </Button>
             </div>
         </div>
     );
