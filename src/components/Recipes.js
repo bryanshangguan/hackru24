@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Button, Card, CardBody, Spinner, Accordion, AccordionItem } from '@nextui-org/react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faUtensils, faTrash, faStar } from '@fortawesome/free-solid-svg-icons';
+import { faUtensils, faTrash, faStar} from '@fortawesome/free-solid-svg-icons';
 import fetchRecipes from '../functions/fetchRecipes';
 
 function Recipes({ apiKey, ingredients }) {
@@ -32,6 +32,8 @@ function Recipes({ apiKey, ingredients }) {
             setFavorites([...favorites, recipe]);
         }
     };
+
+
 
     return (
         <div className='container mx-auto'>
@@ -76,9 +78,11 @@ function Recipes({ apiKey, ingredients }) {
                                         <AccordionItem title={
                                         <div className="flex justify-between items-center">
                                             <span>{recipe.name}</span>
-                                            <FontAwesomeIcon icon={faStar}
-                                                onClick={() => toggleFavorite(recipe)}
-                                            />
+                                            <div className="flex gap-4 items-center">
+                                                <Button onClick= {() => toggleFavorite(recipe)} color="white" aria-label="Favorite">
+                                                    {favorites.includes(recipe) ? <FontAwesomeIcon icon={faStar} className='text-xl' style={{color: "#000000",}} /> : <FontAwesomeIcon icon={faStar} className='text-xl' style={{color: "#FFD43B",}} />}
+                                                </Button>    
+                                            </div>
                                         </div>
                                     }>
                                         {recipe.steps.map((step, stepIndex) => (
