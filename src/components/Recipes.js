@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
 import { Button, Card, CardBody, Spinner, Accordion, AccordionItem } from '@nextui-org/react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faUtensils, faTrash } from '@fortawesome/free-solid-svg-icons';
+import { faUtensils, faTrash, faStar } from '@fortawesome/free-solid-svg-icons';
 import fetchRecipes from '../functions/fetchRecipes';
 
 function Recipes({ apiKey, ingredients }) {
     const [recipesList, setRecipesList] = useState([]);
     const [loading, setLoading] = useState(false);
+    const [favorites, setFavorites] = useState([]);
 
     const handleGetRecipes = async (ingredients) => {
         setLoading(true);
@@ -22,6 +23,14 @@ function Recipes({ apiKey, ingredients }) {
 
     const clearRecipes = () => {
         setRecipesList([]);
+    };
+
+    const toggleFavorite = (recipe) => {
+        if (favorites.includes(recipe)) {
+            setFavorites(favorites.filter(fav => fav !== recipe));
+        } else {
+            setFavorites([...favorites, recipe]);
+        }
     };
 
     return (
@@ -64,11 +73,18 @@ function Recipes({ apiKey, ingredients }) {
                             <Card key={index} className='mb-4'>
                                 <CardBody>
                                     <Accordion>
-                                        <AccordionItem key={index} aria-label='Food category' title={recipe.name}>
-                                            {recipe.steps.map((step, stepIndex) => (
-                                                <p key={stepIndex} className='mb-2'>{step}</p>
-                                            ))}
-                                        </AccordionItem>
+                                        <AccordionItem title={
+                                        <div className="flex justify-between items-center">
+                                            <span>{recipe.name}</span>
+                                            <FontAwesomeIcon icon={faStar}
+                                                onClick={() => toggleFavorite(recipe)}
+                                            />
+                                        </div>
+                                    }>
+                                        {recipe.steps.map((step, stepIndex) => (
+                                            <p key={stepIndex}>{step}</p>
+                                        ))}
+                                    </AccordionItem>
                                     </Accordion>
                                 </CardBody>
                             </Card>
