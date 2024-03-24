@@ -26,7 +26,7 @@ function App() {
 			case 'recipes':
 				return <Recipes apiKey={apiKey} toggleFavorite={toggleFavorite} favorites={favorites} />;
 			case 'favorites':
-				return <Favorites favorites={favorites}/>;
+				return <Favorites favorites={favorites} />;
 			default:
 				return <Home setOpenAIKey={setOpenAIKey} />;
 		}

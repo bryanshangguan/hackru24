@@ -36,7 +36,7 @@ function Sidebar({ onMenuSelect, isSidebarCollapsed, setIsSidebarCollapsed }) {
                     <FontAwesomeIcon icon={faBookOpen} className='mr-2 text-xl' /> {!isSidebarCollapsed && 'Recipes'}
                 </button>
                 <button className={getButtonClasses()} onClick={() => handleMenuClick('favorites')}>
-                    <FontAwesomeIcon icon={faStar} className='mr-2 text-xl' /> {!isSidebarCollapsed && 'favorites'}
+                    <FontAwesomeIcon icon={faStar} className='mr-2 text-xl' /> {!isSidebarCollapsed && 'Favorites'}
                 </button>
             </nav>
             <div className='mt-auto'>
