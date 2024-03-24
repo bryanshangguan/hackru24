@@ -6,8 +6,6 @@ function Favorites({favorites}) {
         return <p>No favorites added yet.</p>;
     }
 
-    console.log(favorites);
-
     return (
         <div className="Favorites-page px-20 space-y-4 mt-4">
             <h2 className="text-3xl font-bold mb-4">Your Favorite Recipes</h2>
