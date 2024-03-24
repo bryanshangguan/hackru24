@@ -1,6 +1,6 @@
 import React from 'react';
 
-function History() {
+function Favorites() {
     return (
         <div className='history-page'>
             <h1>History page</h1>
@@ -8,4 +8,4 @@ function History() {
     );
 }
 
-export default History;
+export default Favorites;

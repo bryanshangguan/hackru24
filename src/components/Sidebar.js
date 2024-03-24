@@ -1,6 +1,6 @@
 import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faHome, faUtensils, faBookOpen, faHistory, faArrowRight, faArrowLeft } from '@fortawesome/free-solid-svg-icons';
+import { faHome, faUtensils, faBookOpen, faStar, faArrowRight, faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 import logo1 from '../img/logo1.png';
 
 function Sidebar({ onMenuSelect, isSidebarCollapsed, setIsSidebarCollapsed }) {
@@ -35,8 +35,8 @@ function Sidebar({ onMenuSelect, isSidebarCollapsed, setIsSidebarCollapsed }) {
                 <button className={getButtonClasses()} onClick={() => handleMenuClick('recipes')}>
                     <FontAwesomeIcon icon={faBookOpen} className='mr-2 text-xl' /> {!isSidebarCollapsed && 'Recipes'}
                 </button>
-                <button className={getButtonClasses()} onClick={() => handleMenuClick('history')}>
-                    <FontAwesomeIcon icon={faHistory} className='mr-2 text-xl' /> {!isSidebarCollapsed && 'History'}
+                <button className={getButtonClasses()} onClick={() => handleMenuClick('favorites')}>
+                    <FontAwesomeIcon icon={faStar} className='mr-2 text-xl' /> {!isSidebarCollapsed && 'favorites'}
                 </button>
             </nav>
             <div className='mt-auto'>

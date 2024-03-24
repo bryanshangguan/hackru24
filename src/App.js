@@ -4,7 +4,7 @@ import Sidebar from './components/Sidebar';
 import Home from './components/Home';
 import Pantry from './components/Pantry';
 import Recipes from './components/Recipes';
-import History from './components/History';
+import Favorites from './components/Favorites';
 
 function App() {
 	const [activePage, setActivePage] = useState('home');
@@ -25,8 +25,8 @@ function App() {
 				return <Pantry />;
 			case 'recipes':
 				return <Recipes apiKey={apiKey} toggleFavorite={toggleFavorite} favorites={favorites} />;
-			case 'history':
-				return <History />;
+			case 'favorites':
+				return <Favorites />;
 			default:
 				return <Home setOpenAIKey={setOpenAIKey} />;
 		}
