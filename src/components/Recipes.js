@@ -1,15 +1,16 @@
 import React, { useState } from 'react';
 import { Button, Card, CardBody, Spinner } from '@nextui-org/react';
-import main from '../functions/fetchAIRecipes';
+import fetchRecipes from '../functions/fetchRecipes';
+import { Accordion, AccordionItem } from "@nextui-org/react";
 
-function Recipes({ ingredients }) {
+function Recipes({ apiKey, ingredients }) {
     const [recipesList, setRecipesList] = useState([]);
     const [loading, setLoading] = useState(false);
 
     const handleGetRecipes = async (ingredients) => {
         setLoading(true);
 
-        const fetchedRecipes = await main(['beef', 'carrots', 'corn', 'peanuts']);
+        const fetchedRecipes = await fetchRecipes(apiKey, ['beef', 'carrots', 'corn', 'peanuts']);
 
         if (Array.isArray(fetchedRecipes)) {
             setRecipesList(fetchedRecipes);
@@ -27,23 +28,29 @@ function Recipes({ ingredients }) {
 
     return (
         <div className='Recipes-page'>
-            <div className='recipes-list px-20'>
+            <div>
+                <p className='font-serif pl-28 mt-4 text-5xl font-bold'>Generate Recipes with Ingredients</p>
+            </div>
+            <div className='recipes-list px-20 mt-4'>
                 {loading ? (
                     <Spinner color='primary' size='large' />
                 ) : (
                     recipesList.map((recipe, index) => (
                         <Card key={index}>
                             <CardBody>
-                                <h2>{recipe.name}</h2>
-                                {recipe.steps.map((step, stepIndex) => (
-                                    <p key={stepIndex}>{step}</p>
-                                ))}
+                                <Accordion>
+                                    <AccordionItem key="1" aria-label="Accordion 1" title={recipe.name}>
+                                        {recipe.steps.map((step, stepIndex) => (
+                                            <p key={stepIndex}>{step}</p>
+                                        ))}
+                                    </AccordionItem>
+                                </Accordion>
                             </CardBody>
                         </Card>
                     ))
                 )}
             </div>
-            <div className = "pl-28 space-x-3 h-9">
+            <div className="pl-28 space-x-3 mt-4">
                 <Button auto flat color='success' onClick={() => handleGetRecipes(ingredients)} disabled={loading}>
                     Get Recipes
                 </Button>
