@@ -1,12 +1,11 @@
 import React from 'react';
 import { Card, CardBody, Accordion, AccordionItem } from '@nextui-org/react';
 
-function Favorites({favorites}) {
+function Favorites({ favorites }) {
     if (favorites == null || favorites.length === 0) {
         return <p>No favorites added yet.</p>;
     }
 
-function Favorites({ favorites }) {
     return (
         <div className="Favorites-page px-20 space-y-4 mt-4">
             <h2 className="text-3xl font-bold mb-4">Your Favorite Recipes</h2>
