@@ -3,16 +3,29 @@ import logo2 from '../img/logo1.png';
 
 function Home({ setOpenAIKey }) {
     const [apiKey, setApiKey] = useState('');
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
+    const [isValidKey, setIsValidKey] = useState(true);
 
     const handleApiKeyChange = (event) => {
         setApiKey(event.target.value);
-        setOpenAIKey(event.target.value);
     };
+
+    const validateApiKey = (key) => {
+        // Dummy validation logic (replace with actual validation logic)
+        return key && key.length > 10; // Example condition
+    };
+
 
     const handleSubmit = (event) => {
         event.preventDefault();
+        if (validateApiKey(apiKey)) {
+            setOpenAIKey(apiKey);
+            setIsValidKey(true);
+            setIsLoggedIn(true);
+        } else {
+            setIsValidKey(false);
+        }
     };
-
     return (
         <div className="px-6">
             <div className="flex justify-between items-start py-8">
@@ -23,18 +36,23 @@ function Home({ setOpenAIKey }) {
                 </div>
                 <div className="bg-yellow-400 p-4 rounded-lg shadow-lg w-64">
                     <h2 className="text-lg mb-2">API Key</h2>
-                    <form onSubmit={handleSubmit}>
-                        <div className="mb-4">
-                            <input
-                                type="text"
-                                placeholder="Enter your API key"
-                                className="p-2 w-full mb-2"
-                                value={apiKey}
-                                onChange={handleApiKeyChange}
-                            />
-                        </div>
-                        <button type="submit" className="w-full bg-blue-500 text-white p-2 rounded">Submit</button>
-                    </form>
+                    {!isLoggedIn ? (
+                        <form onSubmit={handleSubmit}>
+                            <div className="mb-4">
+                                <input
+                                    type="text"
+                                    placeholder="Enter your API key"
+                                    className="p-2 w-full mb-2"
+                                    value={apiKey}
+                                    onChange={handleApiKeyChange}
+                                />
+                                {!isValidKey && <p className="text-red-500">Invalid API key. Please try again.</p>}
+                            </div>
+                            <button type="submit" className="w-full bg-blue-500 text-white p-2 rounded">Submit</button>
+                        </form>
+                    ) : (
+                        <p className="text-lg text-green-500 text-center">Logged in</p>
+                    )}
                 </div>
             </div>
             <div className="grid grid-cols-2 gap-4">
