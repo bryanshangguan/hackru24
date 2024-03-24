@@ -10,6 +10,12 @@ function App() {
 	const [activePage, setActivePage] = useState('home');
 	const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
 	const [apiKey, setOpenAIKey] = useState('');
+	const [favorites, setFavorites] = useState([]);
+
+	const toggleFavorite = recipe => {
+		const isFavorite = favorites.includes(recipe);
+		setFavorites(isFavorite ? favorites.filter(f => f !== recipe) : [...favorites, recipe]);
+	};
 
 	const renderActivePage = () => {
 		switch (activePage) {
@@ -18,7 +24,7 @@ function App() {
 			case 'pantry':
 				return <Pantry />;
 			case 'recipes':
-				return <Recipes apiKey={apiKey} />;
+				return <Recipes apiKey={apiKey} toggleFavorite={toggleFavorite} favorites={favorites} />;
 			case 'history':
 				return <History />;
 			default:

@@ -1,58 +1,90 @@
-import React, { useState } from 'react';
-import logo2 from '../img/logo1.png';
+import React, { useState, useEffect } from 'react';
+import { Button, Input, Checkbox } from '@nextui-org/react';
+import logo2 from '../img/logo2.png';
 
 function Home({ setOpenAIKey }) {
     const [apiKey, setApiKey] = useState('');
-    const [isLoggedIn, setIsLoggedIn] = useState(false);
     const [isValidKey, setIsValidKey] = useState(true);
+    const [submitted, setSubmitted] = useState(false);
+    const [saveKey, setSaveKey] = useState(false);
+
+    useEffect(() => {
+        const storedApiKey = localStorage.getItem('apiKey');
+        if (storedApiKey) {
+            setApiKey(storedApiKey);
+            setOpenAIKey(storedApiKey);
+        }
+    }, [setOpenAIKey]);
 
     const handleApiKeyChange = (event) => {
         setApiKey(event.target.value);
+        setSubmitted(false);
     };
 
-    const validateApiKey = (key) => {
-        // Dummy validation logic (replace with actual validation logic)
-        return key && key.length > 10; // Example condition
+    const handleSaveKeyChange = (event) => {
+        setSaveKey(event.target.checked);
     };
 
+    const validateApiKey = async (key) => {
+        try {
+            const response = await fetch('https://api.openai.com/v1/models', {
+                method: 'GET',
+                headers: {
+                    'Authorization': `Bearer ${key}`,
+                },
+            });
 
-    const handleSubmit = (event) => {
-        event.preventDefault();
-        if (validateApiKey(apiKey)) {
-            setOpenAIKey(apiKey);
-            setIsValidKey(true);
-            setIsLoggedIn(true);
-        } else {
+            if (response.status === 200) {
+                setIsValidKey(true);
+                if (saveKey) {
+                    localStorage.setItem('apiKey', key);
+                }
+                return true;
+            } else {
+                setIsValidKey(false);
+                return false;
+            }
+        } catch (error) {
+            console.error('Error validating OpenAI API key:', error);
             setIsValidKey(false);
+            return false;
         }
     };
+
+    const handleSubmit = async (event) => {
+        event.preventDefault();
+        const isValid = await validateApiKey(apiKey);
+        if (isValid) {
+            setOpenAIKey(apiKey);
+        }
+        setSubmitted(true);
+    };
+
     return (
-        <div className="px-6">
-            <div className="flex justify-between items-start py-8">
-                <img src={logo2} alt='Logo' className="w-60 h-60 object-contain mr-2" />
+        <div className='px-6'>
+            <div className='flex justify-between items-start py-8'>
+                <img src={logo2} alt='Logo' className='w-60 h-60 object-contain mr-2' />
                 <div>
-                    <h1 className="text-left font-serif text-9xl font-bold mb-4">Pantry Chef</h1>
-                    <p className="text-right font-serif text-3xl">Where Every Ingredient Counts.</p>
+                    <h1 className='text-left font-serif text-9xl font-bold mb-4'>Pantry Chef</h1>
+                    <p className='text-right font-serif text-3xl'>Where Every Ingredient Counts.</p>
                 </div>
-                <div className="bg-yellow-400 p-4 rounded-lg shadow-lg w-64">
-                    <h2 className="text-lg mb-2">API Key</h2>
-                    {!isLoggedIn ? (
-                        <form onSubmit={handleSubmit}>
-                            <div className="mb-4">
-                                <input
-                                    type="text"
-                                    placeholder="Enter your API key"
-                                    className="p-2 w-full mb-2"
-                                    value={apiKey}
-                                    onChange={handleApiKeyChange}
-                                />
-                                {!isValidKey && <p className="text-red-500">Invalid API key. Please try again.</p>}
-                            </div>
-                            <button type="submit" className="w-full bg-blue-500 text-white p-2 rounded">Submit</button>
-                        </form>
-                    ) : (
-                        <p className="text-lg text-green-500 text-center">Logged in</p>
-                    )}
+                <div className='border-yellow-400 border-2 p-4 rounded-lg shadow-lg w-64'>
+                    <h2 className='text-lg mb-2'>API Key</h2>
+                    <form onSubmit={handleSubmit}>
+                        <Input
+                            type='text'
+                            variant='bordered'
+                            placeholder='Enter your API key'
+                            value={apiKey}
+                            onChange={handleApiKeyChange}
+                        />
+                        <Checkbox checked={saveKey} onChange={handleSaveKeyChange} className='mt-1 mb-2'>
+                            Save key (locally)
+                        </Checkbox>
+                        <Button type='submit' color='primary' className='w-full'>Submit</Button>
+                        {!isValidKey && submitted && <p className='text-red-500'>Invalid API key. Please try again.</p>}
+                        {isValidKey && submitted && <p className='text-green-500'>Valid API key detected!</p>}
+                    </form>
                 </div>
             </div>
             <div className="grid grid-cols-2 gap-4">

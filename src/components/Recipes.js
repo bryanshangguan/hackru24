@@ -1,13 +1,12 @@
 import React, { useState } from 'react';
 import { Button, Card, CardBody, Spinner, Accordion, AccordionItem } from '@nextui-org/react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faUtensils, faTrash, faStar} from '@fortawesome/free-solid-svg-icons';
+import { faUtensils, faTrash, faStar } from '@fortawesome/free-solid-svg-icons';
 import fetchRecipes from '../functions/fetchRecipes';
 
-function Recipes({ apiKey, ingredients }) {
+function Recipes({ apiKey, toggleFavorite, favorites, ingredients }) {
     const [recipesList, setRecipesList] = useState([]);
     const [loading, setLoading] = useState(false);
-    const [favorites, setFavorites] = useState([]);
 
     const handleGetRecipes = async (ingredients) => {
         setLoading(true);
@@ -25,16 +24,6 @@ function Recipes({ apiKey, ingredients }) {
         setRecipesList([]);
     };
 
-    const toggleFavorite = (recipe) => {
-        if (favorites.includes(recipe)) {
-            setFavorites(favorites.filter(fav => fav !== recipe));
-        } else {
-            setFavorites([...favorites, recipe]);
-        }
-    };
-
-
-
     return (
         <div className='container mx-auto'>
             <div className='text-center'>
@@ -42,9 +31,8 @@ function Recipes({ apiKey, ingredients }) {
             </div>
             <div className='flex justify-center mb-8'>
                 <Button
-                    auto
-                    flat
                     color='success'
+                    radius='sm'
                     onClick={() => handleGetRecipes(ingredients)}
                     disabled={loading}
                     className='mr-4 px-6 py-3 text-lg'
@@ -53,9 +41,8 @@ function Recipes({ apiKey, ingredients }) {
                     Get Recipes
                 </Button>
                 <Button
-                    auto
-                    flat
-                    color='default'
+                    color='danger'
+                    radius='sm'
                     onClick={clearRecipes}
                     disabled={loading}
                     className='px-6 py-3 text-lg'
@@ -76,19 +63,19 @@ function Recipes({ apiKey, ingredients }) {
                                 <CardBody>
                                     <Accordion>
                                         <AccordionItem title={
-                                        <div className="flex justify-between items-center">
-                                            <span>{recipe.name}</span>
-                                            <div className="flex gap-4 items-center">
-                                                <Button onClick= {() => toggleFavorite(recipe)} color="white" aria-label="Favorite">
-                                                    {favorites.includes(recipe) ? <FontAwesomeIcon icon={faStar} className='text-xl' style={{color: "#000000",}} /> : <FontAwesomeIcon icon={faStar} className='text-xl' style={{color: "#FFD43B",}} />}
-                                                </Button>    
+                                            <div className="flex justify-between items-center">
+                                                <span>{recipe.name}</span>
+                                                <div className="flex gap-4 items-center">
+                                                    <Button onClick={() => toggleFavorite(recipe)} color="white" aria-label="Favorite">
+                                                        {favorites.includes(recipe) ? <FontAwesomeIcon icon={faStar} className='text-xl' style={{ color: "#FFD43B", }} /> : <FontAwesomeIcon icon={faStar} className='text-xl' style={{ color: "#000000", }} />}
+                                                    </Button>
+                                                </div>
                                             </div>
-                                        </div>
-                                    }>
-                                        {recipe.steps.map((step, stepIndex) => (
-                                            <p key={stepIndex}>{step}</p>
-                                        ))}
-                                    </AccordionItem>
+                                        }>
+                                            {recipe.steps.map((step, stepIndex) => (
+                                                <p key={stepIndex}>{step}</p>
+                                            ))}
+                                        </AccordionItem>
                                     </Accordion>
                                 </CardBody>
                             </Card>
