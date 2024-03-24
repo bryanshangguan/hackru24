@@ -50,7 +50,7 @@ function Recipes({ apiKey, ingredients }) {
                     Get Recipes
                 </Button>
                 <Button
-                    color='default'
+                    color='danger'
                     radius='sm'
                     onClick={clearRecipes}
                     disabled={loading}
@@ -72,17 +72,17 @@ function Recipes({ apiKey, ingredients }) {
                                 <CardBody>
                                     <Accordion>
                                         <AccordionItem title={
-                                        <div className="flex justify-between items-center">
-                                            <span>{recipe.name}</span>
-                                            <FontAwesomeIcon icon={faStar}
-                                                onClick={() => toggleFavorite(recipe)}
-                                            />
-                                        </div>
-                                    }>
-                                        {recipe.steps.map((step, stepIndex) => (
-                                            <p key={stepIndex}>{step}</p>
-                                        ))}
-                                    </AccordionItem>
+                                            <div className="flex justify-between items-center">
+                                                <span>{recipe.name}</span>
+                                                <FontAwesomeIcon icon={faStar}
+                                                    onClick={() => toggleFavorite(recipe)}
+                                                />
+                                            </div>
+                                        }>
+                                            {recipe.steps.map((step, stepIndex) => (
+                                                <p key={stepIndex}>{step}</p>
+                                            ))}
+                                        </AccordionItem>
                                     </Accordion>
                                 </CardBody>
                             </Card>
