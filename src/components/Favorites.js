@@ -4,15 +4,14 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faStar } from '@fortawesome/free-solid-svg-icons';
 
 function Favorites({ toggleFavorite, favorites }) {
-    if (favorites == null || favorites.length === 0) {
-        return <p className='text-3xl font-bold mt-4 px-20'>No favorites added yet.</p>;
-    }
-
     return (
-        <div className="Favorites-page px-20 space-y-4 mt-4">
-            <h2 className="text-3xl font-bold mb-4">Your Favorite Recipes</h2>
-            {favorites.map((recipe, index) => (
-                <Card key={index}>
+        <div className="flex flex-col items-center h-screen my-3">
+            <h2 className="font-bold font-serif text-5xl my-11">Your Favorite Recipes</h2>
+            {favorites == null || favorites.length === 0 ? (
+                <p>No favorites added yet.</p>
+            ) : (
+                favorites.map((recipe, index) => (
+                    <Card key={index}>
                     <CardBody>
                         <Accordion>
                         <AccordionItem title={
@@ -32,7 +31,8 @@ function Favorites({ toggleFavorite, favorites }) {
                         </Accordion>
                     </CardBody>
                 </Card>
-            ))}
+                ))
+            )}
         </div>
     );
 }

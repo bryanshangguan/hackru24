@@ -62,11 +62,13 @@ function Home({ setOpenAIKey }) {
 
     return (
         <div className='px-6'>
-            <div className='flex justify-between items-start py-8'>
-                <img src={logo2} alt='Logo' className='w-60 h-60 object-contain mr-2' />
-                <div>
-                    <h1 className='text-left font-serif text-9xl font-bold mb-4'>Pantry Chef</h1>
-                    <p className='text-right font-serif text-3xl'>Where Every Ingredient Counts.</p>
+            <div className='flex justify-between items-start py-8 border-b-8 border-yellow-400 mb-4'>
+                <div className="flex items-center">
+                    <img src={logo2} alt='Logo' className='w-60 h-60 object-contain mr-2' />
+                    <div>
+                        <h1 className='text-left font-serif text-8xl font-bold mb-4'>Pantry Chef</h1>
+                        <p className='text-right font-serif text-3xl'>Where Every Ingredient Counts.</p>
+                    </div>
                 </div>
                 <div className='border-yellow-400 border-2 p-4 rounded-lg shadow-lg w-64'>
                     <h2 className='text-lg mb-2'>API Key</h2>

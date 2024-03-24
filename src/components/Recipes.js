@@ -25,10 +25,8 @@ function Recipes({ apiKey, toggleFavorite, favorites, ingredients }) {
     };
 
     return (
-        <div className='container mx-auto'>
-            <div className='text-center'>
-                <h2 className='text-5xl font-bold mb-6 mt-6'>Generate Recipes</h2>
-            </div>
+        <div className='flex flex-col items-center h-screen my-3'>
+            <h1 className="font-bold font-serif text-center text-5xl my-11">Generate Recipes</h1>
             <div className='flex justify-center mb-8'>
                 <Button
                     color='success'
