@@ -1,7 +1,7 @@
 import React from 'react';
 import { Card, CardBody, Accordion, AccordionItem } from '@nextui-org/react';
 
-function Favorites({favorites}) {
+function Favorites({ favorites }) {
     if (favorites == null || favorites.length === 0) {
         return <p>No favorites added yet.</p>;
     }
