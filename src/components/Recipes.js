@@ -50,8 +50,8 @@ function Recipes({ apiKey, toggleFavorite, favorites, ingredients }) {
                     Clear Recipes
                 </Button>
             </div>
-            <div className='flex justify-center'>
-                <div className='w-full sm:w-4/5 md:w-2/3'>
+            <div className='flex justify-center w-full sm:w-4/5 md:w-2/3'>
+                <div className='w-full'>
                     {loading ? (
                         <div className='flex justify-center'>
                             <Spinner color='primary' size='large' />
@@ -70,7 +70,9 @@ function Recipes({ apiKey, toggleFavorite, favorites, ingredients }) {
                                                     </Button>
                                                 </div>
                                             </div>
-                                        }>
+                                        }
+                                        textValue={recipe.name}
+                                        >
                                             {recipe.steps.map((step, stepIndex) => (
                                                 <p key={stepIndex}>{step}</p>
                                             ))}

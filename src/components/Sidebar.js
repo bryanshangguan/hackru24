@@ -38,6 +38,12 @@ function Sidebar({ onMenuSelect, isSidebarCollapsed, setIsSidebarCollapsed }) {
                 <button className={getButtonClasses()} onClick={() => handleMenuClick('favorites')}>
                     <FontAwesomeIcon icon={faStar} className='mr-2 text-xl' /> {!isSidebarCollapsed && 'Favorites'}
                 </button>
+
+                {!isSidebarCollapsed && (
+                    <div className="text-sm text-center text-gray-500 pt-60">
+                        Created by Amanda Lei, Bryan Shangguan, Chris Chan for HackRU2024 :D
+                    </div>
+                )}
             </nav>
             <div className='mt-auto'>
                 <div className='cursor-pointer' onClick={toggleSidebar}>
